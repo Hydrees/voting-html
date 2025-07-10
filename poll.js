@@ -1,5 +1,6 @@
+//load from localStorage or start fresh
 //vote counts stored in an object
-const votes = {
+let votes = JSON.parse(localStorage.getItem("votes")) || {
     time: 0,
     spiritual: 0,
     distraction: 0,
@@ -7,6 +8,12 @@ const votes = {
     support: 0,
     circle: 0,
 };
+
+//show existing results (on page load)
+/*let totalVotes = Object.values(votes).reduce((sum, count) => sum + count, 0);
+if (totalVotes > 0) {
+    displayResults(totalVotes);
+}; */
 
 //event listener to button
 document.getElementById("submitBtn").addEventListener("click" , () => {
@@ -20,6 +27,9 @@ document.getElementById("submitBtn").addEventListener("click" , () => {
 //to increase vote count for the selected option
     const value = selected.value; 
     votes[value]++;
+
+    //to save back to local storage
+    localStorage.setItem("votes" , JSON.stringify(votes));
 
 //to calculate total votes
     const totalVotes = 
